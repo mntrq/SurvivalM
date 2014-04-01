@@ -6,28 +6,45 @@ var Player = cc.Sprite.extend({
         this.direction = 0;
     },
 
-	update: function( dt ) {
-		var pos = this.getPosition();
-	
-	    	if(this.direction == Player.DIR.UP){
-	    		this.setPosition( new cc.Point( pos.x, pos.y + 7 ));
-	    	}
-		    else if(this.direction == Player.DIR.RIGHT){
-	    		this.setPosition( new cc.Point(pos.x +7 , pos.y));
-	    	}
-
-	    	else if(this.direction == Player.DIR.LEFT){
-	    		this.setPosition( new cc.Point(pos.x - 7 , pos.y));
-	    	}
-
-	    	else if(this.direction == Player.DIR.DOWN){
-	    		this.setPosition( new cc.Point(pos.x , pos.y - 7));
-	    	}
-
-	},
-
 	switchDirection: function( e ) {
-		this.direction = e;
+		this.move(e)
+    },
+
+    move: function(e) {
+    	var pos = this.getPosition();
+
+    	if(e == Player.DIR.UP){
+            if(pos.y == 550){
+                this.setPosition(new cc.Point(pos.x,pos.y));
+            }
+            else{
+                this.setPosition( new cc.Point( pos.x, pos.y + 100 ));
+            }
+	   	}
+	    else if(e == Player.DIR.RIGHT){
+            if(pos.x == 650){
+                this.setPosition(new cc.Point(pos.x,pos.y));
+            }
+            else{
+                this.setPosition( new cc.Point(pos.x + 100 , pos.y));
+            }
+	    }
+	    else if(e == Player.DIR.LEFT){
+            if(pos.x == 150){
+                this.setPosition(new cc.Point(pos.x,pos.y));
+            }
+            else{
+                this.setPosition( new cc.Point(pos.x - 100 , pos.y));
+            }
+	    }
+    	else if(e == Player.DIR.DOWN){
+            if(pos.y == 50){
+                this.setPosition(new cc.Point(pos.x,pos.y));   
+            }
+            else{
+                this.setPosition( new cc.Point(pos.x , pos.y - 100));
+            }
+	   	}
     }
 });
 
@@ -37,3 +54,4 @@ Player.DIR = {
     LEFT: 37,
     DOWN: 40
 };
+

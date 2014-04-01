@@ -8,16 +8,19 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild(this.bg);
 
         this.player = new Player();
-        this.player.setPosition( new cc.Point( screenWidth / 2, screenHeight / 2 ) );
+        this.player.setPosition( new cc.Point( screenWidth-450, screenHeight-350 ) );
         this.addChild( this.player );
 
-        this.player.scheduleUpdate();
+        this.ball = new Ball();
+        this.addChild( this.ball );
+        this.ball.scheduleUpdate();
+        
         this.setKeyboardEnabled( true );
 
         return true;
     },
 
-    onKeyDown: function( e ) {        
+    onKeyDown: function( e ) {    
         this.player.switchDirection( e );
     },
 
