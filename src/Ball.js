@@ -49,9 +49,8 @@ var Ball = cc.Sprite.extend({
     hit: function(player){
     	var ballPos = this.getPosition();
      	var playerPos = player.getPosition();
-     	return checkPlayerBallCollision(playerPos.x , playerPos.y , ballPos.x , ballPos.y);
+     	return this.checkPlayerBallCollision(playerPos.x , playerPos.y , ballPos.x , ballPos.y);
     },
-
 
     checkPlayerBallCollision: function( playerX, playerY, ballX, ballY ) {
         if( (Math.abs(playerX - ballX) <= 20)  && (Math.abs(playerY - ballY) <= 20) ){
