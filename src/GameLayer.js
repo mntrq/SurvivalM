@@ -4,20 +4,40 @@ var GameLayer = cc.LayerColor.extend({
         this.setPosition( new cc.Point( 0, 0 ) );
 
         this.bg = new Background();
-        this.bg.setPosition(new cc.Point (screenWidth / 2, screenHeight / 2 ));
+        this.bg.setPosition(cc.p(screenWidth / 2, screenHeight / 2 ));
         this.addChild(this.bg);
 
         this.player = new Player();
-        this.player.setPosition( new cc.Point( screenWidth-450, screenHeight-350 ) );
+        this.player.setPosition(cc.p( screenWidth-450, screenHeight-350 ) );
         this.addChild( this.player );
-
-        this.ball = new Ball();
-        this.addChild( this.ball );
-        this.ball.scheduleUpdate();
         
         this.setKeyboardEnabled( true );
+        this.startSpeed=1.5;
+        this.schedule(this.updateStartBall,1.3,Infinity,0);
+
+        this.ball = null;
+        this.scheduleUpdate();
 
         return true;
+    },
+
+    updateStartBall: function() {
+        for(var i=0 ; i<3 ; i++) {
+            this.ball = new Ball();
+            this.addChild( this.ball );
+            this.ball.scheduleUpdate();
+        }
+    },
+
+    update: function(dt){
+        if(this.ball && this.ball.hit(this.player)){
+            this.endGame();
+        }
+    },
+
+    changeState: function( speed ) {
+        this.unschedule(this.updateStartBall);
+        this.schedule(this.updateStartBall,speed,Infinity,0);
     },
 
     onKeyDown: function( e ) {    
@@ -26,6 +46,13 @@ var GameLayer = cc.LayerColor.extend({
 
     onKeyUp: function() {
         this.player.switchDirection(0);
+    },
+
+    endGame: function(){
+        this.player.stop();
+        if(this.ball){
+            this.ball.unscheduleUpdate();
+        }
     },
 
 });

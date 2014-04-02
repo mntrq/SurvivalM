@@ -1,7 +1,7 @@
 var Ball = cc.Sprite.extend({
     ctor: function() {
         this._super();
-        this.initWithFile( 'images/ball.png' );
+        this.initWithFile( 'images/rock.png' );
         this.randomPosition();
         this.vX = 0;
         this.vY = 0;
@@ -14,7 +14,7 @@ var Ball = cc.Sprite.extend({
         
         var i = Math.round(Math.random()*20);
 
-       	this.setPosition( new cc.Point(randomPosX[i],randomPosY[i]));
+       	this.setPosition(cc.p(randomPosX[i],randomPosY[i]));
     },
 
     update: function(dt){
@@ -46,11 +46,11 @@ var Ball = cc.Sprite.extend({
     	}
     },
 
-    // hit: function(player){
-    // 	var ballPos = this.getPosition();
-    // 	var playerPos = player.getPosition();
-    // 	return checkPlayerBallCollision(playerPos.x , playerPos.y , ballPos.x , ballPos.y);
-    // }
+    hit: function(player){
+    	var ballPos = this.getPosition();
+     	var playerPos = player.getPosition();
+     	return checkPlayerBallCollision(playerPos.x , playerPos.y , ballPos.x , ballPos.y);
+    }
 
 });
 
