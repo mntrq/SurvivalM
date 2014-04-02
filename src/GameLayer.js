@@ -15,7 +15,7 @@ var GameLayer = cc.LayerColor.extend({
         this.startSpeed=1.5;
         this.schedule(this.updateStartBall,1.3,Infinity,0);
 
-        this.ball = null;
+        this.ball = new Array();
         this.scheduleUpdate();
 
         return true;
@@ -23,16 +23,25 @@ var GameLayer = cc.LayerColor.extend({
 
     updateStartBall: function() {
         for(var i=0 ; i<3 ; i++) {
-            this.ball = new Ball();
-            this.addChild( this.ball );
-            this.ball.scheduleUpdate();
+            this.ball[i] = new Ball();
+            this.addChild( this.ball[i] );
+            this.ball[i].scheduleUpdate();
         }
     },
 
     update: function(dt){
-        if(this.ball && this.ball.hit(this.player)){
-            this.endGame();
+        if(this.isHit()){
+            console.log("AON HAAD");
+            //this.endGame();
         }
+    },
+
+    isHit: function(){
+        for(var i=0 ; i<this.ball.length ; i++){
+            if(this.ball[i].hit(this.player))
+                return true;
+        }
+        return false;
     },
 
     changeState: function( speed ) {
