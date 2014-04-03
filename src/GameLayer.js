@@ -13,9 +13,10 @@ var GameLayer = cc.LayerColor.extend({
         
         this.setKeyboardEnabled( true );
         this.startSpeed=1.5;
-        this.schedule(this.updateStartBall,1.3,Infinity,0);
+        //this.schedule(this.updateStartBall,1.3,Infinity,0);
 
         this.ball = new Array();
+        this.updateStartBall();
         this.scheduleUpdate();
 
         return true;
@@ -54,7 +55,7 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     onKeyUp: function() {
-        this.player.switchDirection(0);
+        this.scheduleOnce(this.stayAction,0.05);
     },
 
     endGame: function(){
@@ -63,6 +64,11 @@ var GameLayer = cc.LayerColor.extend({
             this.ball.unscheduleUpdate();
         }
     },
+
+    stayAction: function(){
+        this.player.stopAllActions();
+        this.player.runAction(this.player.createStandAction());
+    }
 
 });
 

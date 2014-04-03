@@ -1,7 +1,7 @@
 var g_resources = [
     //image
-    {src: 'images/ball.png' },
-    {src: 'images/player.png' },
+    {src: 'images/rock.png' },
+    {src: 'images/p2.png' },
     {src: 'images/bg.jpg' }
  
     //plist
