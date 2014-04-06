@@ -7,13 +7,9 @@ var Player = cc.Sprite.extend({
 
         this.movingAction = this.createStandAction();
         this.stopAllActions();
-        this.runAction( this.movingAction );
+        this.runAction(this.movingAction);
     },
-
-	switchDirection: function( e ) {
-		this.move(e)
-    },
-
+    
     move: function(e) {
     	var pos = this.getPosition();
 
@@ -68,8 +64,8 @@ var Player = cc.Sprite.extend({
 
     createStandAction: function() {
         var animation = new cc.Animation.create();
-        animation.addSpriteFrameWithFile( 'images/hand1.png' );
-        animation.addSpriteFrameWithFile( 'images/hand2.png' );
+        animation.addSpriteFrameWithFile('images/hand1.png');
+        animation.addSpriteFrameWithFile('images/hand2.png');
         animation.setDelayPerUnit( 0.15 );
 
         return cc.RepeatForever.create(cc.Animate.create(animation));
@@ -79,7 +75,7 @@ var Player = cc.Sprite.extend({
         var animation = new cc.Animation.create();
         
         for(var i=1 ; i<=9 ; i++){
-            animation.addSpriteFrameWithFile( 'images/left' + i + '.png' );
+            animation.addSpriteFrameWithFile('images/left' + i + '.png');
         }
         animation.setDelayPerUnit( 0.05 );
 
@@ -90,7 +86,7 @@ var Player = cc.Sprite.extend({
         var animation = new cc.Animation.create();
         
         for(var i=1 ; i<=9 ; i++){
-            animation.addSpriteFrameWithFile( 'images/right' + i + '.png' );
+            animation.addSpriteFrameWithFile('images/right' + i + '.png');
         }
         animation.setDelayPerUnit( 0.05 );
 
@@ -101,7 +97,7 @@ var Player = cc.Sprite.extend({
         var animation = new cc.Animation.create();
         
         for(var i=1 ; i<=9 ; i++){
-            animation.addSpriteFrameWithFile( 'images/up' + i + '.png' );
+            animation.addSpriteFrameWithFile('images/up' + i + '.png');
         }
         animation.setDelayPerUnit( 0.05 );
 
@@ -112,7 +108,7 @@ var Player = cc.Sprite.extend({
         var animation = new cc.Animation.create();
         
         for(var i=1 ; i<=9 ; i++){
-            animation.addSpriteFrameWithFile( 'images/down' + i + '.png' );
+            animation.addSpriteFrameWithFile('images/down' + i + '.png');
         }
         animation.setDelayPerUnit( 0.05 );
 

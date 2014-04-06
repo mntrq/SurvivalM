@@ -1,15 +1,15 @@
 var GameLayer = cc.LayerColor.extend({
     init: function() {
-        this._super( new cc.Color4B( 127, 127, 127, 255 ) );
-        this.setPosition( new cc.Point( 0, 0 ) );
+        this._super(new cc.Color4B(127, 127, 127, 255));
+        this.setPosition(new cc.Point(0,0));
 
         this.bg = new Background();
-        this.bg.setPosition(cc.p(screenWidth / 2, screenHeight / 2 ));
+        this.bg.setPosition(cc.p(screenWidth/2, screenHeight/2));
         this.addChild(this.bg);
 
         this.player = new Player();
-        this.player.setPosition(cc.p( screenWidth-450, screenHeight-350 ) );
-        this.addChild( this.player );
+        this.player.setPosition(cc.p(screenWidth-450, screenHeight-350));
+        this.addChild(this.player);
         
         this.setKeyboardEnabled( true );
         this.startSpeed=1.5;
@@ -51,7 +51,7 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     onKeyDown: function( e ) {    
-        this.player.switchDirection( e );
+        this.player.move(e);
     },
 
     onKeyUp: function() {

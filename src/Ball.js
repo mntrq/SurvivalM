@@ -6,6 +6,9 @@ var Ball = cc.Sprite.extend({
         this.vX = 0;
         this.vY = 0;
         this.getDirection();
+
+        this.movingAction = this.createAnimation();
+        this.runAction(this.movingAction);
     },
 
     randomPosition: function(){
@@ -54,11 +57,22 @@ var Ball = cc.Sprite.extend({
      	return this.checkPlayerBallCollision(playerPos.x , playerPos.y , ballPos.x , ballPos.y);
     },
 
-    checkPlayerBallCollision: function( playerX, playerY, ballX, ballY ) {
+    checkPlayerBallCollision: function(playerX, playerY, ballX, ballY) {
         if( (Math.abs(playerX - ballX) <= 20)  && (Math.abs(playerY - ballY) <= 20) ){
             return true;
         }
         return false;
+    },
+
+    createAnimation: function(){
+        var animation = new cc.Animation.create();
+        
+        for(var i=1 ; i<=10 ; i++){
+            animation.addSpriteFrameWithFile('images/world' + i + '.png');
+        }
+        animation.setDelayPerUnit( 0.05 );
+
+        return cc.RepeatForever.create(cc.Animate.create(animation));
     }
 
 });
