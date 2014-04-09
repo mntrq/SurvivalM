@@ -8,11 +8,11 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild(this.bg);
 
         this.player = new Player();
-        this.player.setPosition(cc.p(screenWidth-450, screenHeight-350));
+        this.player.setPosition(cc.p(screenWidth - 450, screenHeight - 350));
         this.addChild(this.player);
         
         this.setKeyboardEnabled( true );
-        this.startSpeed=1.5;
+        this.startSpeed = 1.5;
         //this.schedule(this.updateStartBall,1.3,Infinity,0);
 
         this.ball = new Array();
@@ -20,6 +20,13 @@ var GameLayer = cc.LayerColor.extend({
         this.scheduleUpdate();
         this.playerDelayDead = 0;
         this.isDead = false;
+
+        this.life = cc.Sprite.create('images/life.png');
+        this.life.setPosition(cc.p(730,560));
+        this.addChild(this.life);
+        this.lifeLabel = cc.LabelTTF.create('x 5','Arial',35);
+        this.lifeLabel.setPosition(cc.p(770,550));
+        this.addChild(this.lifeLabel);
 
         return true;
     },
@@ -78,6 +85,10 @@ var GameLayer = cc.LayerColor.extend({
     stayAction: function(){
         this.player.stopAllActions();
         this.player.runAction(this.player.createStandAction());
+    },
+
+    lifeCounting: function(){
+
     },
 
 });

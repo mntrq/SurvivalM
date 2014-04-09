@@ -72,7 +72,9 @@ var Ball = cc.Sprite.extend({
         animation.setDelayPerUnit( 0.05 );
 
         return cc.RepeatForever.create(cc.Animate.create(animation));
-    }
+    },
+
+    
 
 });
 

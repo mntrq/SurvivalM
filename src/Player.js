@@ -2,7 +2,7 @@
 var Player = cc.Sprite.extend({
     ctor: function() {
         this._super();
-        this.initWithFile( 'images/p2.png' );
+        this.initWithFile( 'images/life.png' );
         this.direction = 0;
 
         this.movingAction = this.createStandAction();
