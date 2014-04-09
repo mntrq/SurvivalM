@@ -18,6 +18,8 @@ var GameLayer = cc.LayerColor.extend({
         this.ball = new Array();
         this.updateStartBall();
         this.scheduleUpdate();
+        this.playerDelayDead = 0;
+        this.isDead = false;
 
         return true;
     },
@@ -31,10 +33,20 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     update: function(dt){
+        if(this.isDead){
+            this.playerDelayDead++;
+        }
+
         if(this.isHit()){
             this.player.stopAllActions();
             this.player.runAction(this.player.createDeadAction());
+            this.isDead = true;
+        }
+
+        if(this.playerDelayDead > 60){
             this.player.reborn();
+            this.playerDelayDead = 0;
+            this.isDead = false;
         }
     },
 
@@ -51,18 +63,22 @@ var GameLayer = cc.LayerColor.extend({
     //     this.schedule(this.updateStartBall,speed,Infinity,0);
     // },
 
-    onKeyDown: function( e ) {    
-        this.player.move(e);
+    onKeyDown: function( e ) {
+        if(!this.isDead){ 
+            this.player.move(e);
+        }
     },
 
     onKeyUp: function() {
-        this.scheduleOnce(this.stayAction,0.05);
+        if(!this.isDead){
+            this.scheduleOnce(this.stayAction,0.05);
+        }
     },
 
     stayAction: function(){
         this.player.stopAllActions();
         this.player.runAction(this.player.createStandAction());
-    }
+    },
 
 });
 

@@ -15,7 +15,6 @@ var Ball = cc.Sprite.extend({
     	var randomPosX = [150, 150, 150, 150, 150, 150, 250, 250, 350, 350, 450, 450, 550, 550, 650, 650, 650, 650, 650, 650];
     	var randomPosY = [50, 150, 250, 350, 450, 550, 50, 550, 50, 550, 50, 550, 50, 550, 50, 150, 250, 350, 450, 550];
         var i = Math.floor(Math.random()*20);
-
        	this.setPosition(cc.p(randomPosX[i],randomPosY[i]));
     },
 
