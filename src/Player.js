@@ -21,7 +21,7 @@ var Player = cc.Sprite.extend({
                 this.setPosition(cc.p(pos.x,pos.y));
             }
             else{
-                this.setPosition(cc.p( pos.x, pos.y + 100 ));
+                this.setPosition(cc.p(pos.x, pos.y + 100 ));
             }
 	   	}
 
@@ -62,11 +62,15 @@ var Player = cc.Sprite.extend({
 	   	}
     },
 
+    reborn: function(){
+        this.setPosition(cc.p(screenWidth-450, screenHeight-350));
+    },
+
     createStandAction: function() {
         var animation = new cc.Animation.create();
         animation.addSpriteFrameWithFile('images/hand1.png');
         animation.addSpriteFrameWithFile('images/hand2.png');
-        animation.setDelayPerUnit( 0.15 );
+        animation.setDelayPerUnit(0.15);
 
         return cc.RepeatForever.create(cc.Animate.create(animation));
     },
@@ -77,7 +81,7 @@ var Player = cc.Sprite.extend({
         for(var i=1 ; i<=9 ; i++){
             animation.addSpriteFrameWithFile('images/left' + i + '.png');
         }
-        animation.setDelayPerUnit( 0.05 );
+        animation.setDelayPerUnit(0.05);
 
         return cc.RepeatForever.create(cc.Animate.create(animation));
     },
@@ -88,7 +92,7 @@ var Player = cc.Sprite.extend({
         for(var i=1 ; i<=9 ; i++){
             animation.addSpriteFrameWithFile('images/right' + i + '.png');
         }
-        animation.setDelayPerUnit( 0.05 );
+        animation.setDelayPerUnit(0.05);
 
         return cc.RepeatForever.create(cc.Animate.create(animation));
     },
@@ -99,7 +103,7 @@ var Player = cc.Sprite.extend({
         for(var i=1 ; i<=9 ; i++){
             animation.addSpriteFrameWithFile('images/up' + i + '.png');
         }
-        animation.setDelayPerUnit( 0.05 );
+        animation.setDelayPerUnit(0.05);
 
         return cc.RepeatForever.create(cc.Animate.create(animation));
     },
@@ -110,7 +114,18 @@ var Player = cc.Sprite.extend({
         for(var i=1 ; i<=9 ; i++){
             animation.addSpriteFrameWithFile('images/down' + i + '.png');
         }
-        animation.setDelayPerUnit( 0.05 );
+        animation.setDelayPerUnit(0.05);
+
+        return cc.RepeatForever.create(cc.Animate.create(animation));
+    },
+
+    createDeadAction: function(){
+        var animation = new cc.Animation.create();
+        
+        for(var i=1 ; i<=11 ; i++){
+            animation.addSpriteFrameWithFile('images/dead' + i + '.png');
+        }
+        animation.setDelayPerUnit(0.05);
 
         return cc.RepeatForever.create(cc.Animate.create(animation));
     },

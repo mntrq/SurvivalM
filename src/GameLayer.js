@@ -32,8 +32,9 @@ var GameLayer = cc.LayerColor.extend({
 
     update: function(dt){
         if(this.isHit()){
-            console.log("AON HAAD");
-            //this.endGame();
+            this.player.stopAllActions();
+            this.player.runAction(this.player.createDeadAction());
+            this.player.reborn();
         }
     },
 
@@ -45,10 +46,10 @@ var GameLayer = cc.LayerColor.extend({
         return false;
     },
 
-    changeState: function( speed ) {
-        this.unschedule(this.updateStartBall);
-        this.schedule(this.updateStartBall,speed,Infinity,0);
-    },
+    // changeState: function( speed ) {
+    //     this.unschedule(this.updateStartBall);
+    //     this.schedule(this.updateStartBall,speed,Infinity,0);
+    // },
 
     onKeyDown: function( e ) {    
         this.player.move(e);
@@ -56,13 +57,6 @@ var GameLayer = cc.LayerColor.extend({
 
     onKeyUp: function() {
         this.scheduleOnce(this.stayAction,0.05);
-    },
-
-    endGame: function(){
-        this.player.stop();
-        if(this.ball){
-            this.ball.unscheduleUpdate();
-        }
     },
 
     stayAction: function(){
