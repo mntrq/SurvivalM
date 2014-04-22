@@ -80,9 +80,12 @@ var GameLayer = cc.LayerColor.extend({
 
     gameOver: function(){
             this.player.stopAllActions();
-            this.ball.stopAllActions();
             this.player.unscheduleUpdate();
-            this.ball.unscheduleUpdate();
+
+            for(var i=0 ; i<3 ; i++){
+                this.ball[i].stopAllActions();
+                this.ball[i].unscheduleUpdate();
+            }
     },
 
     life: function(){
@@ -110,13 +113,20 @@ var GameLayer = cc.LayerColor.extend({
     // },
 
     onKeyDown: function(e) {
-        if(e == 80){
+        if((e == 80) && (this.isPause == false)){
             for(var i=0 ; i<3 ; i++){
                 this.ball[i].pause();
             }
             this.player.pause();
             this.stopAllActions();
             this.isPause = true;
+        }
+        else if((e == 80) && (this.isPause == true)){
+            for(var i=0 ; i<3 ; i++){
+                this.ball[i].resume();
+            }
+            this.player.resume();
+            this.isPause = false;
         }
 
         if(!this.isDead){ 

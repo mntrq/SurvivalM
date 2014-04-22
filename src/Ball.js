@@ -35,6 +35,11 @@ var Ball = cc.Sprite.extend({
         this.stopAllActions();
     },
 
+    resume: function(){
+        this.scheduleUpdate();
+        this.runAction(this.movingAction);
+    },
+
     getDirection: function(){
     	var pos = this.getPosition();
 

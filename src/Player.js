@@ -8,24 +8,29 @@ var Player = cc.Sprite.extend({
         this.movingAction = this.createStandAction();
         this.stopAllActions();
         this.runAction(this.movingAction);
+
+        this.isGamePause = false;
+
     },
     
     move: function(e) {
-    	if(e == Player.DIR.UP){
-            this.moveUp();
-	   	}
+        if(this.isGamePause == false){
+            if(e == Player.DIR.UP){
+                this.moveUp();
+            }
 
-	    else if(e == Player.DIR.RIGHT){
-            this.moveRight();
-	    }
+            else if(e == Player.DIR.RIGHT){
+                this.moveRight();
+            }
 
-	    else if(e == Player.DIR.LEFT){
-            this.moveLeft();
-	    }
+            else if(e == Player.DIR.LEFT){
+                this.moveLeft();
+            }
 
-    	else if(e == Player.DIR.DOWN){
-            this.moveDown();
-	   	}
+            else if(e == Player.DIR.DOWN){
+                this.moveDown();
+            }
+        }
     },
 
     reborn: function(){
@@ -37,6 +42,13 @@ var Player = cc.Sprite.extend({
     pause: function(){
         this.unscheduleUpdate();
         this.stopAllActions();
+        this.isGamePause = true;
+    },
+
+    resume: function(){
+        this.scheduleUpdate();
+        this.runAction(this.movingAction);
+        this.isGamePause = false;
     },
 
     moveUp: function(){
