@@ -28,6 +28,8 @@ var GameLayer = cc.LayerColor.extend({
         this.life();
         this.scoreDecreased = false;
 
+        this.isPause = false;
+
         this.scheduleUpdate();
         return true;
     },
@@ -107,14 +109,23 @@ var GameLayer = cc.LayerColor.extend({
     //     this.schedule(this.updateStartBall,speed,Infinity,0);
     // },
 
-    onKeyDown: function( e ) {
+    onKeyDown: function(e) {
+        if(e == 80){
+            for(var i=0 ; i<3 ; i++){
+                this.ball[i].pause();
+            }
+            this.player.pause();
+            this.stopAllActions();
+            this.isPause = true;
+        }
+
         if(!this.isDead){ 
             this.player.move(e);
         }
     },
 
     onKeyUp: function() {
-        if(!this.isDead){
+        if(!this.isDead && this.isPause == false){
             this.scheduleOnce(this.stayAction,0.05);
         }
     },

@@ -30,6 +30,11 @@ var Ball = cc.Sprite.extend({
     	}
     },
 
+    pause: function(){
+        this.unscheduleUpdate();
+        this.stopAllActions();
+    },
+
     getDirection: function(){
     	var pos = this.getPosition();
 

@@ -34,6 +34,11 @@ var Player = cc.Sprite.extend({
         this.runAction(this.createStandAction());
     },
 
+    pause: function(){
+        this.unscheduleUpdate();
+        this.stopAllActions();
+    },
+
     moveUp: function(){
         var pos = this.getPosition();
 
