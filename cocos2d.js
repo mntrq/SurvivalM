@@ -17,6 +17,7 @@
             'src/Background.js',
             'src/Ball.js',
             'src/Resource.js',
+            'src/Warning.js'
                  //add your own files in order here
         ]
     };
