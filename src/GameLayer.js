@@ -50,7 +50,8 @@ var GameLayer = cc.LayerColor.extend({
 
     update: function(dt){
         if((this.numLife == 0) && (this.isGameOver == false)){
-            this.gameOver();
+            this.scheduleOnce(this.gameOver,0.35);
+            // this.gameOver();
         }
 
         if(this.isHit()){
@@ -79,8 +80,9 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     gameOver: function(){
-        this.player.stopAllActions();
         this.player.unscheduleUpdate();
+        this.player.stopAllActions();
+        this.stopAllActions();
 
         for(var i=0 ; i<3 ; i++){
             this.ball[i].stopAllActions();
