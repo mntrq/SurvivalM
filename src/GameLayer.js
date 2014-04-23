@@ -29,6 +29,7 @@ var GameLayer = cc.LayerColor.extend({
         this.scoreDecreased = false;
 
         this.isPause = false;
+        this.isGameOver = false;
 
         this.scheduleUpdate();
         return true;
@@ -48,8 +49,7 @@ var GameLayer = cc.LayerColor.extend({
     // },
 
     update: function(dt){
-
-        if(this.numLife == 0){
+        if((this.numLife == 0) && (this.isGameOver == false)){
             this.gameOver();
         }
 
@@ -79,13 +79,27 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     gameOver: function(){
-            this.player.stopAllActions();
-            this.player.unscheduleUpdate();
+        this.player.stopAllActions();
+        this.player.unscheduleUpdate();
 
-            for(var i=0 ; i<3 ; i++){
-                this.ball[i].stopAllActions();
-                this.ball[i].unscheduleUpdate();
-            }
+        for(var i=0 ; i<3 ; i++){
+            this.ball[i].stopAllActions();
+            this.ball[i].unscheduleUpdate();
+        }
+
+        this.blackScreeen = cc.Sprite.create('images/black.png');
+        this.blackScreeen.setPosition(cc.p(screenWidth/2, screenHeight/2));
+        this.addChild(this.blackScreeen);
+
+        this.restartLabel = cc.LabelTTF.create('Press R to restart.','Arial',50);
+        this.restartLabel.setPosition(cc.p(screenWidth/2, screenHeight/2));
+        this.addChild(this.restartLabel);
+
+        this.isGameOver = true;
+    },
+
+    restart: function(){
+        cc.Director.getInstance().replaceScene(new myApp.startScene());
     },
 
     life: function(){
@@ -127,6 +141,9 @@ var GameLayer = cc.LayerColor.extend({
             }
             this.player.resume();
             this.isPause = false;
+        }
+        else if(e == 82){
+            this.restart();
         }
 
         if(!this.isDead){ 
