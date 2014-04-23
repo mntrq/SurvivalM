@@ -50,8 +50,7 @@ var GameLayer = cc.LayerColor.extend({
 
     update: function(dt){
         if((this.numLife == 0) && (this.isGameOver == false)){
-            this.scheduleOnce(this.gameOver,0.35);
-            // this.gameOver();
+            this.scheduleOnce(this.gameOver,0.4);
         }
 
         if(this.isHit()){
@@ -60,7 +59,7 @@ var GameLayer = cc.LayerColor.extend({
             this.isDead = true;
         }
 
-        else if(this.playerDelayDead > 60){
+        else if((this.playerDelayDead > 60) && (this.numLife > 0)){
             this.player.reborn();
             this.playerDelayDead = 0;
             this.isDead = false;
@@ -81,8 +80,8 @@ var GameLayer = cc.LayerColor.extend({
 
     gameOver: function(){
         this.player.unscheduleUpdate();
-        this.player.stopAllActions();
         this.stopAllActions();
+        this.player.stopAllActions();
 
         for(var i=0 ; i<3 ; i++){
             this.ball[i].stopAllActions();
@@ -130,6 +129,9 @@ var GameLayer = cc.LayerColor.extend({
 
     onKeyDown: function(e) {
         if((e == 80) && (this.isPause == false)){
+            if(this.isDead) {
+                return;
+            }
             for(var i=0 ; i<3 ; i++){
                 this.ball[i].pause();
             }
@@ -148,7 +150,7 @@ var GameLayer = cc.LayerColor.extend({
             this.restart();
         }
 
-        if(!this.isDead){ 
+        if(!this.isDead && !this.isGameOver){ 
             this.player.move(e);
         }
     },
@@ -160,8 +162,8 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     stayAction: function(){
-        this.player.stopAllActions();
-        this.player.runAction(this.player.createStandAction());
+            this.player.stopAllActions();
+            this.player.runAction(this.player.createStandAction());
     },
 
 });
