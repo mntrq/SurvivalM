@@ -11,6 +11,11 @@ var Ball = cc.Sprite.extend({
         this.runAction(this.movingAction);
     },
 
+    update: function(dt){
+        //this.scheduleOnce(this.randomPosition,2);
+        this.updatePosition();
+    },
+
     randomPosition: function(){
     	var randomPosX = [150, 150, 150, 150, 150, 150, 250, 250, 350, 350, 450, 450, 550, 550, 650, 650, 650, 650, 650, 650];
     	var randomPosY = [50, 150, 250, 350, 450, 550, 50, 550, 50, 550, 50, 550, 50, 550, 50, 150, 250, 350, 450, 550];
@@ -18,16 +23,16 @@ var Ball = cc.Sprite.extend({
        	this.setPosition(cc.p(randomPosX[i],randomPosY[i]));
     },
 
-    update: function(dt){
-    	var pos = this.getPosition();
-    	this.setPosition(cc.p((pos.x + this.vX) , (pos.y + this.vY)));
+    updatePosition: function(){
+        var pos = this.getPosition();
+        this.setPosition(cc.p((pos.x + this.vX) , (pos.y + this.vY)));
 
-    	if(pos.x <= 100 || pos.x >= 700 || pos.y <= 0 || pos.y >= 600){
-    		this.randomPosition();
+        if(pos.x <= 100 || pos.x >= 700 || pos.y <= 0 || pos.y >= 600){
+            this.randomPosition();
             this.vX = 0;
             this.vY = 0;
             this.getDirection();
-    	}
+        }
     },
 
     pause: function(){

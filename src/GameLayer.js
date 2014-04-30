@@ -3,20 +3,10 @@ var GameLayer = cc.LayerColor.extend({
         this._super(new cc.Color4B(127, 127, 127, 255));
         this.setPosition(new cc.Point(0,0));
 
-        this.bg = new Background();
-        this.bg.setPosition(cc.p(screenWidth/2, screenHeight/2));
-        this.addChild(this.bg);
-
-        this.player = new Player();
-        this.player.setPosition(cc.p(screenWidth - 450, screenHeight - 350));
-        this.addChild(this.player);
-
-        this.ball = new Array();
-        this.updateStartBall();
-
-        this.warning = new Warning();
-        this.warning.setPosition(cc.p(150,50));
-        this.addChild(this.warning);
+        this.initBG();
+        this.initPlayer();
+        this.initBall();
+        this.initWarning();
         
         this.setKeyboardEnabled( true );
         this.startSpeed = 1.5;
@@ -33,6 +23,29 @@ var GameLayer = cc.LayerColor.extend({
 
         this.scheduleUpdate();
         return true;
+    },
+
+    initBG: function(){
+        this.bg = new Background();
+        this.bg.setPosition(cc.p(screenWidth/2, screenHeight/2));
+        this.addChild(this.bg);
+    },
+
+    initPlayer: function(){
+        this.player = new Player();
+        this.player.setPosition(cc.p(screenWidth - 450, screenHeight - 350));
+        this.addChild(this.player);
+    },
+
+    initBall: function(){
+        this.ball = new Array();
+        this.updateStartBall();
+    },
+
+    initWarning: function(){
+        this.warning = new Warning();
+        this.warning.setPosition(cc.p(150,50));
+        this.addChild(this.warning);
     },
 
     updateStartBall: function() {
