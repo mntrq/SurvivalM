@@ -13,7 +13,6 @@ var Ball = cc.Sprite.extend({
     },
 
     update: function(dt){
-        //this.scheduleOnce(this.randomPosition,2);
         this.updatePosition();
     },
 
@@ -28,7 +27,7 @@ var Ball = cc.Sprite.extend({
         this.runner++;
 
         var pos = this.getPosition();
-        if( this.runner >= 10 ){
+        if( this.runner >= 15 ){
             this.setPosition(cc.p((pos.x + this.vX) , (pos.y + this.vY)));
         }
         

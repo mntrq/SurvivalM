@@ -3,6 +3,7 @@ var GameLayer = cc.LayerColor.extend({
         this._super(new cc.Color4B(127, 127, 127, 255));
         this.setPosition(new cc.Point(0,0));
 
+        this.sound = new Sound();
         this.initBG();
         this.initPlayer();
         this.initBall();
@@ -11,8 +12,6 @@ var GameLayer = cc.LayerColor.extend({
         this.startSpeed = 1.5;
         //this.schedule(this.updateStartBall,1.3,Infinity,0);
         // this.scheduleUpdate();
-
-        this.sound = new Sound();
 
         this.playerDelayDead = 0;
         this.isDead = false;
@@ -62,7 +61,7 @@ var GameLayer = cc.LayerColor.extend({
             this.isDead = true;
         }
 
-        else if((this.playerDelayDead > 60) && (this.numLife > 0)){
+        else if((this.playerDelayDead > 40) && (this.numLife > 0)){
             this.player.reborn();
             this.playerDelayDead = 0;
             this.isDead = false;
@@ -109,6 +108,8 @@ var GameLayer = cc.LayerColor.extend({
         this.player.unscheduleUpdate();
         this.player.stopAllActions();
         this.stopAllActions();
+
+        this.sound.gameOver();
 
         for(var i=0 ; i<3 ; i++){
             this.ball[i].stopAllActions();
