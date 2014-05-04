@@ -6,6 +6,7 @@ var Ball = cc.Sprite.extend({
         this.vX = 0;
         this.vY = 0;
         this.getDirection();
+        this.runner = 0;
 
         this.movingAction = this.createAnimation();
         this.runAction(this.movingAction);
@@ -24,14 +25,20 @@ var Ball = cc.Sprite.extend({
     },
 
     updatePosition: function(){
-        var pos = this.getPosition();
-        this.setPosition(cc.p((pos.x + this.vX) , (pos.y + this.vY)));
+        this.runner++;
 
+        var pos = this.getPosition();
+        if( this.runner >= 10 ){
+            this.setPosition(cc.p((pos.x + this.vX) , (pos.y + this.vY)));
+        }
+        
         if(pos.x <= 100 || pos.x >= 700 || pos.y <= 0 || pos.y >= 600){
             this.randomPosition();
+
             this.vX = 0;
             this.vY = 0;
             this.getDirection();
+            this.runner = 0;
         }
     },
 
@@ -87,9 +94,7 @@ var Ball = cc.Sprite.extend({
         animation.setDelayPerUnit( 0.05 );
 
         return cc.RepeatForever.create(cc.Animate.create(animation));
-    },
-
-    
+    }, 
 
 });
 
