@@ -4,6 +4,8 @@ var GameLayer = cc.LayerColor.extend({
         this.setPosition(new cc.Point(0,0));
 
         this.sound = new Sound();
+        this.sound.startMusicPlease();
+
         this.initBG();
         this.initPlayer();
         this.initBall();
@@ -109,6 +111,7 @@ var GameLayer = cc.LayerColor.extend({
         this.player.stopAllActions();
         this.stopAllActions();
 
+        this.sound.pauseMusicPlease();
         this.sound.gameOver();
 
         for(var i=0 ; i<3 ; i++){
@@ -156,10 +159,12 @@ var GameLayer = cc.LayerColor.extend({
     onKeyDown: function(e) {
         if((e == GameLayer.KEY.P) && (this.isPause == false)){
             if(!this.isDead){
+                this.sound.pauseMusicPlease();
                 this.pause();
             }
         }
         else if((e == GameLayer.KEY.P) && (this.isPause == true)){
+            this.sound.startMusicPlease();
             this.resume();
         }
         else if(e == GameLayer.KEY.R){
