@@ -1,8 +1,6 @@
 var Sound = cc.Node.extend({
 	  ctor: function() {
 	  	this._super();
-	  	//this.background = cc.AudioEngine.getInstance();
-        // this.background.playMusic('res/bg.wav',true);
 
         this.background = new cc.AudioEngine.getInstance();
         this.background.setMusicVolume(0.5);
@@ -19,12 +17,11 @@ var Sound = cc.Node.extend({
 	  },
 
 	  startMusicPlease: function(){
-	  	this.background.playMusic('res/bg.wav',true);
+	  	this.background.playMusic('res/theme.mp3',true);
 	  },
 
-	  pauseMusicPlease: function(){
+	  stopMusicPlease: function(){
 	  	this.background.stopMusic();
 	  },
 
-	
 });

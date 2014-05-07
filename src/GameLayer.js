@@ -6,14 +6,16 @@ var GameLayer = cc.LayerColor.extend({
         this.sound = new Sound();
         this.sound.startMusicPlease();
 
+        this.numBall = 10;
+        this.deployedBall = 1;
+        this.runner = 0;
+
         this.initBG();
         this.initPlayer();
         this.initBall();
         
         this.setKeyboardEnabled(true);
         this.startSpeed = 1.5;
-        //this.schedule(this.updateStartBall,1.3,Infinity,0);
-        // this.scheduleUpdate();
 
         this.playerDelayDead = 0;
         this.isDead = false;
@@ -41,18 +43,34 @@ var GameLayer = cc.LayerColor.extend({
 
     initBall: function(){
         this.ball = new Array();
+        for(var i=0 ; i<this.numBall ; i++) {
+            this.ball[i] = new Ball();
+        }
         this.updateStartBall();
     },
 
     updateStartBall: function() {
-        for(var i=0 ; i<3 ; i++) {
-            this.ball[i] = new Ball();
+        for(var i=0 ; i<this.deployedBall ; i++) {
             this.addChild(this.ball[i]);
             this.ball[i].scheduleUpdate();
         }
     },
 
+    updateNumBall: function(){
+        this.runner++;
+
+        if(this.runner%400 == 0 && this.deployedBall < 10){
+            this.deployedBall++;
+            this.startSpeed++;
+            this.updateStartBall();
+        }
+    },
+
     update: function(dt){
+        if(!this.isGameOver && !this.isPause){
+            this.updateNumBall();
+        }
+
         if((this.numLife == 0) && (this.isGameOver == false)){
             this.scheduleOnce(this.gameOver,0.4);
         }
@@ -84,7 +102,7 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     pause: function(){
-        for(var i=0 ; i<3 ; i++){
+        for(var i=0 ; i<this.numBall ; i++){
             this.ball[i].pause();
         }
 
@@ -94,7 +112,7 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     resume: function(){
-        for(var i=0 ; i<3 ; i++){
+        for(var i=0 ; i<this.numBall ; i++){
                 this.ball[i].resume();
         }
         this.player.resume();
@@ -111,10 +129,10 @@ var GameLayer = cc.LayerColor.extend({
         this.player.stopAllActions();
         this.stopAllActions();
 
-        this.sound.pauseMusicPlease();
+        this.sound.stopMusicPlease();
         this.sound.gameOver();
 
-        for(var i=0 ; i<3 ; i++){
+        for(var i=0 ; i<this.numBall ; i++){
             this.ball[i].stopAllActions();
             this.ball[i].unscheduleUpdate();
         }
@@ -144,22 +162,17 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     isHit: function(){
-        for(var i=0 ; i<this.ball.length ; i++){
+        for(var i=0 ; i<this.deployedBall ; i++){
             if(this.ball[i].hit(this.player))
                 return true;
         }
         return false;
     },
 
-    changeState: function(speed) {
-        this.unschedule(this.updateStartBall);
-        this.schedule(this.updateStartBall,speed,Infinity,0);
-    },
-
     onKeyDown: function(e) {
         if((e == GameLayer.KEY.P) && (this.isPause == false)){
             if(!this.isDead){
-                this.sound.pauseMusicPlease();
+                this.sound.stopMusicPlease();
                 this.pause();
             }
         }

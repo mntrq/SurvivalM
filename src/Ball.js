@@ -1,15 +1,16 @@
 var Ball = cc.Sprite.extend({
     ctor: function() {
         this._super();
-        this.initWithFile( 'images/rock.png' );
+        this.initWithFile('images/world1.png');
         this.randomPosition();
         this.vX = 0;
         this.vY = 0;
         this.getDirection();
         this.runner = 0;
 
-        this.movingAction = this.createAnimation();
-        this.runAction(this.movingAction);
+        this.ballAction = this.createRollingBallAnimation();
+        this.runAction(this.ballAction);
+
     },
 
     update: function(dt){
@@ -27,13 +28,12 @@ var Ball = cc.Sprite.extend({
         this.runner++;
 
         var pos = this.getPosition();
-        if( this.runner >= 15 ){
+        if( this.runner >= 20 ){
             this.setPosition(cc.p((pos.x + this.vX) , (pos.y + this.vY)));
         }
         
         if(pos.x <= 100 || pos.x >= 700 || pos.y <= 0 || pos.y >= 600){
             this.randomPosition();
-
             this.vX = 0;
             this.vY = 0;
             this.getDirection();
@@ -48,7 +48,7 @@ var Ball = cc.Sprite.extend({
 
     resume: function(){
         this.scheduleUpdate();
-        this.runAction(this.movingAction);
+        this.runAction(this.ballAction);
     },
 
     getDirection: function(){
@@ -84,16 +84,16 @@ var Ball = cc.Sprite.extend({
         return false;
     },
 
-    createAnimation: function(){
+    createRollingBallAnimation: function(){
         var animation = new cc.Animation.create();
         
         for(var i=1 ; i<=10 ; i++){
             animation.addSpriteFrameWithFile('images/world' + i + '.png');
         }
-        animation.setDelayPerUnit( 0.05 );
+        animation.setDelayPerUnit(0.05);
 
         return cc.RepeatForever.create(cc.Animate.create(animation));
-    }, 
+    },
 
 });
 
