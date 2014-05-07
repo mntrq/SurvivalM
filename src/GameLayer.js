@@ -13,6 +13,9 @@ var GameLayer = cc.LayerColor.extend({
         this.initBG();
         this.initPlayer();
         this.initBall();
+
+        this.score();
+        this.scoreCount = 0;
         
         this.setKeyboardEnabled(true);
         this.startSpeed = 1.5;
@@ -69,6 +72,11 @@ var GameLayer = cc.LayerColor.extend({
     update: function(dt){
         if(!this.isGameOver && !this.isPause){
             this.updateNumBall();
+
+            if(this.runner%20 == 0){
+                this.scoreCount += 10;
+                this.scoreLabel.setString('Score\n ' + this.scoreCount);
+            }
         }
 
         if((this.numLife == 0) && (this.isGameOver == false)){
@@ -113,7 +121,7 @@ var GameLayer = cc.LayerColor.extend({
 
     resume: function(){
         for(var i=0 ; i<this.numBall ; i++){
-                this.ball[i].resume();
+            this.ball[i].resume();
         }
         this.player.resume();
         this.isPause = false;
@@ -148,6 +156,12 @@ var GameLayer = cc.LayerColor.extend({
         this.restartLabel = cc.LabelTTF.create('       Game Over \n Press R to restart.','Arial',50);
         this.restartLabel.setPosition(cc.p(screenWidth/2, screenHeight/2));
         this.addChild(this.restartLabel);
+    },
+
+    score: function(){
+        this.scoreLabel = cc.LabelTTF.create('Score \n    0', 'Arial', 30);
+        this.scoreLabel.setPosition(cc.p(50,540));
+        this.addChild(this.scoreLabel);
     },
 
     life: function(){
