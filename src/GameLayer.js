@@ -64,7 +64,7 @@ var GameLayer = cc.LayerColor.extend({
 
         if(this.runner%400 == 0 && this.deployedBall < 10){
             this.deployedBall++;
-            this.startSpeed++;
+            this.startSpeed += 1.5;
             this.updateStartBall();
         }
     },
@@ -97,6 +97,7 @@ var GameLayer = cc.LayerColor.extend({
 
         if(this.isDead){
             this.playerDelayDead++;
+
             if(!this.scoreDecreased && this.numLife > 0){
                 this.numLife--;
                 this.lifeCount.setString( 'x ' + this.numLife );
