@@ -6,6 +6,8 @@ var Sound = cc.Node.extend({
         this.background.setMusicVolume(0.5);
 
         this.soundEffect = cc.AudioEngine.getInstance();
+
+        this.isMute = false;
 	  },
 
 	  hit: function(){
@@ -23,5 +25,17 @@ var Sound = cc.Node.extend({
 	  stopMusicPlease: function(){
 	  	this.background.stopMusic();
 	  },
+
+	  mute: function(){
+	  	this.background.setMusicVolume(0);
+	  	this.soundEffect.setEffectsVolume(0);
+	  	this.isMute = true;
+	  },
+
+	  unMute: function(){
+	  	this.background.setMusicVolume(0.5);
+	  	this.soundEffect.setEffectsVolume(0.5);
+	  	this.isMute = false;
+	  }
 
 });

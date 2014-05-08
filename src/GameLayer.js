@@ -185,27 +185,33 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     onKeyDown: function(e) {
-        if((e == GameLayer.KEY.P) && (this.isPause == false)){
+        if((e == GameLayer.KEY.P) && (!this.isPause)){
             if(!this.isDead){
-                this.sound.stopMusicPlease();
+                this.sound.mute();
                 this.pause();
             }
         }
-        else if((e == GameLayer.KEY.P) && (this.isPause == true)){
-            this.sound.startMusicPlease();
+        else if((e == GameLayer.KEY.P) && (this.isPause)){
+            this.sound.unMute();
             this.resume();
         }
         else if(e == GameLayer.KEY.R){
             this.restart();
         }
+        else if((e == GameLayer.KEY.M) && (!this.sound.isMute)){
+            this.sound.mute();
+        }
+        else if((e == GameLayer.KEY.M) && (this.sound.isMute)){
+            this.sound.unMute();
+        }
 
-        if(!this.isDead && !this.isGameOver){ 
+        if((!this.isDead) && (!this.isGameOver)){ 
             this.player.move(e);
         }
     },
 
     onKeyUp: function() {
-        if(!this.isDead && this.isPause == false){
+        if((!this.isDead) && (!this.isPause)){
             this.scheduleOnce(this.stayAction,0.05);
         }
     },
@@ -229,5 +235,6 @@ var StartScene = cc.Scene.extend({
 GameLayer.KEY = {
     P: 80,
     R: 82,
+    M: 77,
 };
 
