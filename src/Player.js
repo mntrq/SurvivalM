@@ -14,7 +14,7 @@ var Player = cc.Sprite.extend({
     },
     
     move: function(e) {
-        if(this.isGamePause == false){
+        if(!this.isGamePause){
             if(e == Player.DIR.UP){
                 this.moveUp();
             }
